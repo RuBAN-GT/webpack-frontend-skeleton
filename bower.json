@@ -1,0 +1,13 @@
+{
+  "name": "webpack-frontend-skeleton",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Dmitry Ruban <dkruban@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
