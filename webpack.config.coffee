@@ -18,6 +18,8 @@ module.exports =
     new ExtractTextPlugin('css/app.css')
   ]
 
+  devtool: 'inline-source-map'
+
   devServer:
     contentBase: path.resolve(__dirname, 'public')
     port: 3333

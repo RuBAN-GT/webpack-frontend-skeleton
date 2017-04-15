@@ -4,7 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --progress",
+    "watch": "webpack --watch --progress --verbose",
+    "server": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Dmitry Ruban <dkruban@gmail.com>",
