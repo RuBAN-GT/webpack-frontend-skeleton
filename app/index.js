@@ -1,5 +1,5 @@
 // jquery
-window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
+window.$ = window.jQuery = require('jquery');
 
 // default
 require('./stylesheets/application.sass');
