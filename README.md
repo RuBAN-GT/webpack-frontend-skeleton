@@ -2,9 +2,9 @@
 
 ## Initialization
 
-It's webpack configuration, for future usage you shuold install node.js, webpack, bower and run:
+It's webpack configuration, for future usage you should install node.js, webpack, bower and run:
 
-> npm install && bower install
+> npm install
 
 ## Usage
 
