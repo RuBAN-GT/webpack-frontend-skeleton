@@ -10,6 +10,9 @@ module.exports =
     path: path.resolve(__dirname, 'public/assets')
     publicPath: '/assets/'
 
+  resolve: alias:
+    vendor: path.resolve(__dirname, 'vendor/')
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('css/app.css')
