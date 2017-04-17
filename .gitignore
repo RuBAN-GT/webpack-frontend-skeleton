@@ -24,6 +24,7 @@ node_modules/
 
 # Webpack output folder.
 public/assets
+public/*.html
 
 # Bower stuff.
 bower_components/

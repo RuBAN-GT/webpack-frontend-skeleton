@@ -1,6 +1,7 @@
 webpack           = require('webpack')
 path              = require('path')
 ExtractTextPlugin = require('extract-text-webpack-plugin')
+HandlebarsPlugin  = require('handlebars-webpack-plugin')
 
 module.exports =
   entry: './app/index.js'
@@ -16,6 +17,17 @@ module.exports =
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('css/app.css')
+    new HandlebarsPlugin({
+      entry: path.resolve(__dirname, 'app/pages/*.hbs')
+      output: path.resolve(__dirname, 'public/[name].html')
+      data: require('./app/data.json')
+      partials: [
+        path.resolve(__dirname, 'app/partials/*/*.hbs')
+      ]
+      helpers:
+        nameOfHbsHelper: Function.prototype
+        projectHelpers: path.resolve(__dirname, 'app/helpers/*.helper.js')
+    })
   ]
 
   devtool: 'inline-source-map'
