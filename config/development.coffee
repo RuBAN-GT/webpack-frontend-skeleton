@@ -1,8 +1,5 @@
-webpack           = require('webpack')
-path              = require('path')
-ExtractTextPlugin = require('extract-text-webpack-plugin')
-UglifyJSPlugin    = require('uglifyjs-webpack-plugin')
-HandlebarsPlugin  = require('handlebars-webpack-plugin')
+webpack = require('webpack')
+path    = require('path')
 
 module.exports =
   devtool: 'eval-source-map'
