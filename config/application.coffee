@@ -1,42 +1,40 @@
 webpack           = require('webpack')
 path              = require('path')
 ExtractTextPlugin = require('extract-text-webpack-plugin')
+UglifyJSPlugin    = require('uglifyjs-webpack-plugin')
 HandlebarsPlugin  = require('handlebars-webpack-plugin')
 
 module.exports =
-  entry: './app/index.js'
+  entry:
+    app: path.join(__dirname, '../app/app.js')
+    vendor: path.join(__dirname, '../app/vendor.js')
 
   output:
-    filename: 'js/app.js'
-    path: path.resolve(__dirname, 'public/assets')
+    filename: 'js/[name].js'
+    path: path.resolve(__dirname, '../public/assets')
     publicPath: '/assets/'
 
   resolve: alias:
-    vendor: path.resolve(__dirname, 'vendor/')
+    vendor: path.resolve(__dirname, '../vendor/')
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin(
+      name: 'vendor'
+      children: true
+    )
     new ExtractTextPlugin('css/app.css')
     new HandlebarsPlugin({
-      entry: path.resolve(__dirname, 'app/pages/*.hbs')
-      output: path.resolve(__dirname, 'public/[name].html')
-      data: require('./app/data.json')
+      entry: path.resolve(__dirname, '../app/pages/*.hbs')
+      output: path.resolve(__dirname, '../public/[name].html')
+      data: require(path.resolve(__dirname, '../app/data.json'))
       partials: [
-        path.resolve(__dirname, 'app/partials/*/*.hbs')
+        path.resolve(__dirname, '../app/partials/*/*.hbs')
       ]
       helpers:
         nameOfHbsHelper: Function.prototype
-        projectHelpers: path.resolve(__dirname, 'app/helpers/*.helper.js')
+        projectHelpers: path.resolve(__dirname, '../app/helpers/*.helper.js')
     })
   ]
-
-  devtool: 'inline-source-map'
-
-  devServer:
-    contentBase: path.resolve(__dirname, 'public')
-    port: 3333
-    watchContentBase: true
-    hot: false
 
   module:
     rules: [
@@ -77,6 +75,6 @@ module.exports =
         exclude: /(node_modules|bower_components)/,
         use:
           loader: 'babel-loader'
-          options: presets: [ 'env' ]
+          options: presets: [ 'es2015', 'env' ]
       }
     ]
