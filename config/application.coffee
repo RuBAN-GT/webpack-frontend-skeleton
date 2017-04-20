@@ -17,12 +17,14 @@ module.exports =
     vendor: path.resolve(__dirname, '../vendor/')
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(
+    new webpack.optimize.CommonsChunkPlugin
       name: 'vendor'
       children: true
-    )
+
     new ExtractTextPlugin('css/app.css')
-    new HandlebarsPlugin({
+
+    new HandlebarsPlugin
+
       entry: path.resolve(__dirname, '../app/pages/*.hbs')
       output: path.resolve(__dirname, '../public/[name].html')
       data: require(path.resolve(__dirname, '../app/data.json'))
@@ -32,7 +34,9 @@ module.exports =
       helpers:
         nameOfHbsHelper: Function.prototype
         projectHelpers: path.resolve(__dirname, '../app/helpers/*.helper.js')
-    })
+
+    new webpack.LoaderOptionsPlugin
+      options: postcss: [ require('autoprefixer') ]
   ]
 
   module:
@@ -57,11 +61,13 @@ module.exports =
       }
       {
         test: /\.css$/
-        use: ExtractTextPlugin.extract(use: 'css-loader')
+        use: ExtractTextPlugin.extract
+          use: ['css-loader', 'postcss-loader']
       }
       {
         test: /\.(sass|scss)$/
-        use: ExtractTextPlugin.extract(use: [ 'css-loader', 'sass-loader' ])
+        use: ExtractTextPlugin.extract
+          use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
       }
       {
         test: /\.coffee$/

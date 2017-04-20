@@ -20,12 +20,10 @@ nbproject
 Thumbs.db
 .idea
 
-# NPM packages folder.
-node_modules/
+# NPM and Bower packages folder.
+node_modules
+bower_components
 
 # Webpack output folder.
 public/assets
 public/*.html
-
-# Bower stuff.
-bower_components/
