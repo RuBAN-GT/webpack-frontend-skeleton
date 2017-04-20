@@ -6,7 +6,6 @@ module.exports =
 
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-    new UglifyJSPlugin(
-      sourceMap: true
-    )
+
+    new UglifyJSPlugin(sourceMap: true)
   ]

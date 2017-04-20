@@ -13,8 +13,7 @@ module.exports =
     path: path.resolve(__dirname, '../public/assets')
     publicPath: '/assets/'
 
-  resolve: alias:
-    vendor: path.resolve(__dirname, '../vendor/')
+  resolve: alias: vendor: path.resolve(__dirname, '../vendor/')
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin
@@ -39,47 +38,56 @@ module.exports =
       options: postcss: [ require('autoprefixer') ]
   ]
 
-  module:
-    rules: [
-      {
-        test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/
-        use:
-          loader: 'file-loader'
-          query:
-            publicPath: '/assets/'
-            outputPath: 'fonts/'
-            useRelativePath: false
-      }
-      {
-        test: /\.(png|jpg|gif)$/
-        use:
-          loader: 'file-loader'
-          query:
-            publicPath: '/assets/'
-            outputPath: 'images/'
-            useRelativePath: false
-      }
-      {
-        test: /\.css$/
-        use: ExtractTextPlugin.extract
-          use: ['css-loader', 'postcss-loader']
-      }
-      {
-        test: /\.(sass|scss)$/
-        use: ExtractTextPlugin.extract
-          use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
-      }
-      {
-        test: /\.coffee$/
-        use:
-          loader: 'coffee-loader'
-          options: sourceMap: true
-      }
-      {
-        test: /\.js$/
-        exclude: /(node_modules|bower_components)/,
-        use:
-          loader: 'babel-loader'
-          options: presets: [ 'es2015', 'env' ]
-      }
-    ]
+  module: rules: [
+    {
+      test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/
+      use:
+        loader: 'file-loader'
+        query:
+          publicPath: '/assets/'
+          outputPath: 'fonts/'
+          useRelativePath: false
+    }
+    {
+      test: /\.(png|jpg|gif)$/
+      use:
+        loader: 'file-loader'
+        query:
+          publicPath: '/assets/'
+          outputPath: 'images/'
+          useRelativePath: false
+    }
+    {
+      test: /\.css$/
+      use: ExtractTextPlugin.extract
+        use: ['css-loader', 'postcss-loader']
+    }
+    {
+      test: /\.(sass|scss)$/
+      use: ExtractTextPlugin.extract
+        use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
+    }
+    {
+      test: /\.coffee$/
+      use:
+        loader: 'coffee-loader'
+        options: sourceMap: true
+    }
+    {
+      enforce: 'pre'
+      test: /\.js$/
+      exclude: /node_modules/,
+      use:
+        loader: 'eslint-loader'
+        options:
+          failOnWarning: false
+          failOnError: false
+    }
+    {
+      test: /\.js$/
+      exclude: /node_modules/,
+      use:
+        loader: 'babel-loader'
+        options: presets: [ 'es2015', 'env' ]
+    }
+  ]
