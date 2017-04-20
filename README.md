@@ -22,21 +22,24 @@ It's configuration uses environment separation. For settings special environment
 
 **Npm scripts:**
 
-* start - start development server
-* build - build your bundles with unassigned environment
-* build:dev - build your bundle with development configuration
-* build:prod - build your bundle with production configuration
-* watch - watch changes with unassigned environment
+| Comman     | Description                                       |
+|------------|---------------------------------------------------|
+| start      | Start the development server.                     |
+| build      | Build your bundles with unassigned environment.   |
+| build:dev  | Build your bundle with development configuration. |
+| build:prod | Build your bundle with production configuration.  |
+| watch      | Watch changes with unassigned environment.        |
+| eslint     | Check your project with eslint.                   |
 
 **Example**
 
-For running webpack with watching with production configuration you can enter:
+For running webpack for watching with production configuration you can enter:
 
 > NODE_ENV=production npm run watch
 
 ## Project structure
 
-| Object                | Caption                                              |
+| Object                | Description                                          |
 |-----------------------|------------------------------------------------------|
 | app/javascripts       | Coffescript files with main application.coffee file. |
 | app/stylesheets       | SASS files with main application.sass file.          |
