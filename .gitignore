@@ -20,10 +20,9 @@ nbproject
 Thumbs.db
 .idea
 
-# NPM and Bower packages folder.
+# NPM packages folder.
 node_modules
-bower_components
 
 # Webpack output folder.
-public/assets
-public/*.html
+public
+!public/.gitkeep

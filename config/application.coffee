@@ -40,22 +40,33 @@ module.exports =
 
   module: rules: [
     {
-      test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/
+      test: /\.(woff|woff2|eot|otf|ttf|svg)$/
+      exclude: [ path.resolve(__dirname, '../app/assets') ]
       use:
         loader: 'file-loader'
-        query:
+        options:
           publicPath: '/assets/'
           outputPath: 'fonts/'
           useRelativePath: false
     }
     {
-      test: /\.(png|jpg|gif)$/
+      test: /\.(png|jpg|gif|ico)$/
+      exclude: [ path.resolve(__dirname, '../app/assets') ]
       use:
         loader: 'file-loader'
-        query:
+        options:
           publicPath: '/assets/'
           outputPath: 'images/'
           useRelativePath: false
+    }
+    {
+      test: /\.(png|jpg|gif|ico|woff|woff2|eot|otf|ttf|svg)$/
+      include: [ path.resolve(__dirname, '../app/assets') ]
+      use:
+        loader: 'file-loader'
+        options:
+          context: path.resolve(__dirname, '../app/assets')
+          name: '[path]/[name].[ext]'
     }
     {
       test: /\.css$/
@@ -66,12 +77,6 @@ module.exports =
       test: /\.(sass|scss)$/
       use: ExtractTextPlugin.extract
         use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
-    }
-    {
-      test: /\.coffee$/
-      use:
-        loader: 'coffee-loader'
-        options: sourceMap: true
     }
     {
       enforce: 'pre'

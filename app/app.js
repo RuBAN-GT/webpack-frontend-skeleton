@@ -1,3 +1,5 @@
 // default
+require.context('./assets/', true);
+
 require('./stylesheets/application.sass');
-require('./javascripts/application.coffee');
+require('./javascripts/application.js');

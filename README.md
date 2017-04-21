@@ -41,7 +41,8 @@ For running webpack for watching with production configuration you can enter:
 
 | Object                | Description                                          |
 |-----------------------|------------------------------------------------------|
-| app/javascripts       | Coffescript files with main application.coffee file. |
+| app/assets            | All images and fonts that will be copy with build    |
+| app/javascripts       | JS files with main application.js file.              |
 | app/stylesheets       | SASS files with main application.sass file.          |
 | app/pages             | Handlebars pages                                     |
 | app/partials          | Partials directory                                   |
