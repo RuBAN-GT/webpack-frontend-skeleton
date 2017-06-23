@@ -1,5 +1,6 @@
 const webpack           = require('webpack');
 const path              = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HandlebarsPlugin  = require('handlebars-webpack-plugin')
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
     }
   },
   plugins: [
+    new ExtractTextPlugin('css/app.css'),
     new HandlebarsPlugin({
       entry: path.resolve(__dirname, '../app/pages/*.hbs'),
       output: path.resolve(__dirname, '../public/[name].html'),
@@ -61,6 +63,18 @@ module.exports = {
             name: '[path]/[name].[ext]'
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader']
+        })
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader', 'sass-loader']
+        })
       },
       {
         enforce: 'pre',
