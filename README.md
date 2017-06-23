@@ -26,8 +26,6 @@ It's configuration uses environment separation. For settings special environment
 |------------|---------------------------------------------------|
 | start      | Start the development server.                     |
 | build      | Build your bundles with unassigned environment.   |
-| build:dev  | Build your bundle with development configuration. |
-| build:prod | Build your bundle with production configuration.  |
 | watch      | Watch changes with unassigned environment.        |
 | eslint     | Check your project with eslint.                   |
 
@@ -39,17 +37,4 @@ For running webpack for watching with production configuration you can enter:
 
 ## Project structure
 
-| Object                | Description                                          |
-|-----------------------|------------------------------------------------------|
-| app/assets            | All images and fonts that will be copy with build    |
-| app/javascripts       | JS files with main application.js file.              |
-| app/stylesheets       | SASS files with main application.sass file.          |
-| app/pages             | Handlebars pages                                     |
-| app/partials          | Partials directory                                   |
-| app/helpers           | Helpers directory                                    |
-| app/app.js            | Entry point for webpack with your scripts.           |
-| app/vendor.js         | Entry point for webpack with vendor scripts.         |
-| app/data.json         | Variables for handlebars files                       |
-| config                | Separate environment webpack configurations.         |
-| config/application.js | Main file with webpack configuration.                |
-| vendor                | Vendor assets.                                       |
+TODO
