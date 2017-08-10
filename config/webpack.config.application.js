@@ -1,7 +1,8 @@
-const webpack           = require('webpack');
-const path              = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HandlebarsPlugin  = require('handlebars-webpack-plugin')
+const webpack = require('webpack');
+const path    = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 module.exports = {
   output: {
@@ -11,20 +12,22 @@ module.exports = {
   },
   resolve: {
     alias: {
+      assets: path.resolve(__dirname, '../app/assets/'),
+      javascripts: path.resolve(__dirname, '../app/javascripts/'),
+      stylesheets: path.resolve(__dirname, '../app/stylesheets/'),
       vendor: path.resolve(__dirname, '../vendor/')
     }
   },
   plugins: [
-    new ExtractTextPlugin('css/app.css'),
-    new HandlebarsPlugin({
-      entry: path.resolve(__dirname, '../app/pages/*.hbs'),
-      output: path.resolve(__dirname, '../public/[name].html'),
-      data: require(path.resolve(__dirname, '../app/data.json')),
-      partials: [path.resolve(__dirname, '../app/partials/*/*.hbs')],
-      helpers: {
-        nameOfHbsHelper: Function.prototype,
-        projectHelpers: path.resolve(__dirname, '../app/helpers/*.helper.js')
-      }
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../app/pages/index.html'),
+      inject: 'body',
+      alwaysWriteToDisk: true,
+      filename: path.join('../index.html')
+    }),
+    new HtmlWebpackHarddiskPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ],
   module: {
@@ -63,18 +66,6 @@ module.exports = {
             name: '[path]/[name].[ext]'
           }
         }
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader']
-        })
-      },
-      {
-        test: /\.(sass|scss)$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'sass-loader']
-        })
       },
       {
         enforce: 'pre',
