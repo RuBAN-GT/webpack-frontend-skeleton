@@ -1,8 +1,19 @@
 const webpack = require('webpack');
+const fs      = require('fs');
 const path    = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
+var pages = []
+fs.readdirSync(path.resolve(__dirname, '../app/pages')).forEach(file => {
+  pages.push(new HtmlWebpackPlugin({
+    template: path.join(__dirname, '../app/pages/' + file),
+    inject: 'body',
+    alwaysWriteToDisk: true,
+    filename: path.join('../' + file)
+  }))
+})
 
 module.exports = {
   output: {
@@ -19,12 +30,7 @@ module.exports = {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../app/pages/index.html'),
-      inject: 'body',
-      alwaysWriteToDisk: true,
-      filename: path.join('../index.html')
-    }),
+    ...pages,
     new HtmlWebpackHarddiskPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
