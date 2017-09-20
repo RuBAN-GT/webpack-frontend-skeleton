@@ -3,19 +3,26 @@ const path    = require('path');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:3333',
     'webpack/hot/only-dev-server',
     path.join(__dirname, '../app/app.js')
   ],
+  output: {
+    devtoolModuleFilenameTemplate: info => path.resolve(info.absoluteResourcePath),
+    filename: 'js/[name].js'
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../public'),
-    port: 3333,
-    watchContentBase: true,
+    historyApiFallback: true,
+    host: '0.0.0.0',
     hot: true,
-    historyApiFallback: true
+    port: 3333,
+    watchContentBase: true
   },
   plugins: [
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('development') }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ],

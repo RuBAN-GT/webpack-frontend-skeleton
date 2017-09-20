@@ -1,4 +1,14 @@
 {
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./app"],
+      "alias": {
+        "assets": "./app/assets",
+        "javascripts": "./app/javascripts",
+        "root": "./app"
+      }
+    }],
+  ],
   "presets": [
     [ "es2015", { "modules": false } ],
     [ "env", { "modules": false } ]

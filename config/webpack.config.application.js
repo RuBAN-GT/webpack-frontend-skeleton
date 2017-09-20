@@ -1,7 +1,6 @@
-const webpack = require('webpack');
-const fs      = require('fs');
-const path    = require('path');
-
+const fs = require('fs');
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
@@ -17,24 +16,22 @@ fs.readdirSync(path.resolve(__dirname, '../app/pages')).forEach(file => {
 
 module.exports = {
   output: {
-    filename: 'js/[name].js',
-    path: path.resolve(__dirname, '../public/assets'),
+    path: path.resolve(__dirname, '../dist/assets'),
     publicPath: '/assets/'
   },
   resolve: {
     alias: {
       assets: path.resolve(__dirname, '../app/assets/'),
-      javascripts: path.resolve(__dirname, '../app/javascripts/'),
       stylesheets: path.resolve(__dirname, '../app/stylesheets/'),
       vendor: path.resolve(__dirname, '../vendor/')
     }
   },
   plugins: [
+    new CleanWebpackPlugin(['dist/assets'], {
+      root: path.resolve(__dirname, '../')
+    }),
     ...pages,
-    new HtmlWebpackHarddiskPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    new HtmlWebpackHarddiskPlugin()
   ],
   module: {
     rules: [
