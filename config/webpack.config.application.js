@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
+
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
@@ -10,7 +12,7 @@ fs.readdirSync(path.resolve(__dirname, '../app/pages')).forEach(file => {
     template: path.join(__dirname, '../app/pages/' + file),
     inject: 'body',
     alwaysWriteToDisk: true,
-    filename: path.join('../' + file)
+    filename: path.join('../' + file.split('.')[0] + '.html')
   }))
 })
 
@@ -22,6 +24,7 @@ module.exports = {
   resolve: {
     alias: {
       assets: path.resolve(__dirname, '../app/assets/'),
+      partials: path.resolve(__dirname, '../app/partials/'),
       stylesheets: path.resolve(__dirname, '../app/stylesheets/'),
       vendor: path.resolve(__dirname, '../vendor/')
     }
@@ -31,12 +34,16 @@ module.exports = {
       root: path.resolve(__dirname, '../')
     }),
     ...pages,
-    new HtmlWebpackHarddiskPlugin()
+    new HtmlWebpackHarddiskPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
   ],
   module: {
     rules: [
       {
-        test: /\.(woff|woff2|eot|otf|ttf|svg)$/,
+        test: /\.(woff(2)?|eot|otf|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         exclude: [path.resolve(__dirname, '../app/assets')],
         use: {
           loader: 'file-loader',
@@ -48,7 +55,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif|ico)$/,
+        test: /\.(png|jpg(eg)?|gif|ico)$/,
         exclude: [path.resolve(__dirname, '../app/assets')],
         use: {
           loader: 'file-loader',
@@ -69,6 +76,10 @@ module.exports = {
             name: '[path]/[name].[ext]'
           }
         }
+      },
+      {
+        test: /\.(hbs|.handlebars)$/,
+        loader: 'handlebars-loader'
       },
       {
         enforce: 'pre',
