@@ -20,7 +20,7 @@ or use npm scripts
 
 It's configuration uses environment separation. For settings special environment you must set `NODE_ENV`. The default environment is `development`.
 
-**Npm scripts:**
+**Package scripts:**
 
 | Comman     | Description                                       |
 |------------|---------------------------------------------------|
@@ -36,5 +36,21 @@ For running webpack for watching with production configuration you can enter:
 > NODE_ENV=production npm run watch
 
 ## Project structure
+
+| Path             | Description                         |
+|------------------|-------------------------------------|
+| /app             | Your application                    |
+| /app/assets      | Assets (such as fonts, images, etc) |
+| /app/javascripts | Common JS scripts                   |
+| /app/helpers     | Handlebars helpers                  |
+| /app/pages       | Pages with html & handlebars syntax |
+| /app/partials    | Handlebars partials                 |
+| /app/stylesheets | Common stylesheets                  |
+| /app/app.js      | Application entry point             |
+| /config          | Webpack configuration               |
+| /dist            | Webpack bundle                      |
+| /vendor          | Vendor libs                         |
+
+## Examples
 
 TODO

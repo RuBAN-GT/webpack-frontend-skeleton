@@ -24,6 +24,7 @@ module.exports = {
   resolve: {
     alias: {
       assets: path.resolve(__dirname, '../app/assets/'),
+      helpers: path.resolve(__dirname, '../app/helpers/'),
       partials: path.resolve(__dirname, '../app/partials/'),
       stylesheets: path.resolve(__dirname, '../app/stylesheets/'),
       vendor: path.resolve(__dirname, '../vendor/')

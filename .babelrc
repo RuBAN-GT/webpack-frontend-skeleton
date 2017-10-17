@@ -4,6 +4,7 @@
       "root": ["./app"],
       "alias": {
         "assets": "./app/assets",
+        "helpers": "./app/helpers",
         "javascripts": "./app/javascripts",
         "root": "./app"
       }
