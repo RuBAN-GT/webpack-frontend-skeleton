@@ -1,19 +1,21 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const CleanPlugin = require('clean-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
+const HarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 var pages = []
 fs.readdirSync(path.resolve(__dirname, '../app/pages')).forEach(file => {
-  pages.push(new HtmlWebpackPlugin({
-    template: path.join(__dirname, '../app/pages/' + file),
-    inject: 'body',
-    alwaysWriteToDisk: true,
-    filename: path.join('../' + file.split('.')[0] + '.html')
-  }))
+  pages.push(
+    new HtmlPlugin({
+      template: path.join(__dirname, '../app/pages/' + file),
+      inject: 'body',
+      alwaysWriteToDisk: true,
+      filename: path.join('../' + file.split('.')[0] + '.html')
+    })
+  )
 })
 
 module.exports = {
@@ -31,11 +33,12 @@ module.exports = {
     }
   },
   plugins: [
-    new CleanWebpackPlugin(['dist/assets'], {
+    new CleanPlugin(['dist/assets'], {
       root: path.resolve(__dirname, '../')
     }),
     ...pages,
-    new HtmlWebpackHarddiskPlugin(),
+    new HarddiskPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
@@ -90,7 +93,7 @@ module.exports = {
           loader: 'eslint-loader',
           options: {
             failOnWarning: false,
-            failOnError: false
+            failOnError: true
           }
         }
       },
@@ -101,4 +104,4 @@ module.exports = {
       }
     ]
   }
-};
+}

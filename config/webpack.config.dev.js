@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const path    = require('path');
+const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   entry: [
@@ -13,13 +13,18 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     historyApiFallback: true,
-    host: '0.0.0.0',
     hot: true,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
     port: 3333,
     watchContentBase: true
   },
   plugins: [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('development') }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ],
@@ -35,4 +40,4 @@ module.exports = {
       }
     ]
   }
-};
+}
